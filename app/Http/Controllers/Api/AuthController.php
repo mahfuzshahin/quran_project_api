@@ -40,16 +40,26 @@ class AuthController extends Controller
         $user = User::where('email', $validated['email'])->first();
 
         if (! $user || ! Hash::check($validated['password'], $user->password)) {
-            return response()->json(['message' => 'Invalid credentials'], 401);
+            return response()->json([
+                'status' => false,
+                'message' => 'Invalid credentials',
+                'data' => null,
+            ], 401);
         }
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
-            'user' => $user,
-            'token' => $token,
-        ]);
+            'status' => true,
+            'message' => 'Login successful',
+            'data' => [
+                'user' => $user,
+                'access_token' => $token,
+                'token_type' => 'Bearer',
+            ],
+        ], 200);
     }
+
 
     public function logout(Request $request)
     {
