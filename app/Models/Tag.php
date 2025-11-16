@@ -13,10 +13,10 @@ class Tag extends Model
         'english_name',
     ];
 
-    public function ayats()
-{
-    return $this->belongsToMany(Ayat::class, 'keywords')
-                ->withTimestamps();
-}
+    // public function ayats()
+    // {
+    //     return $this->belongsToMany(Ayat::class, 'keywords')
+    //                 ->withTimestamps();
+    // }
     
 }

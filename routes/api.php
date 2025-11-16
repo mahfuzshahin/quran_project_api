@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\SurahController;
 use App\Http\Controllers\Api\AyatController;
+use App\Http\Controllers\Api\KeywordController;
+use App\Http\Controllers\Api\TagController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -25,6 +27,23 @@ Route::get('/ayats', [AyatController::class, 'index']);
 Route::get('/ayats/by-surah/{surah_id}', [AyatController::class, 'getBySurah']);
 
 Route::post('/ayats/{ayat_id}/tags', [AyatController::class, 'addKeywords']);
+
+Route::post('/keywords', [KeywordController::class, 'store']);
+
+Route::get('/tags', [TagController::class, 'index']);
+
+// Create a new tag
+Route::post('/tags', [TagController::class, 'store']);
+
+// Get a single tag
+Route::get('/tags/{tag}', [TagController::class, 'show']);
+
+// Update a tag
+Route::put('/tags/{tag}', [TagController::class, 'update']);
+Route::patch('/tags/{tag}', [TagController::class, 'update']); // optional, for partial updates
+
+// Delete a tag
+Route::delete('/tags/{tag}', [TagController::class, 'destroy']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/me', [AuthController::class, 'me']);

@@ -28,10 +28,8 @@ class Ayat extends Model
         return $this->belongsTo(Surah::class, 'surah_id');
     }
 
-    public function tags()
+    public function keywords()
     {
-        return $this->belongsToMany(Tag::class, 'keywords')
-                    ->withTimestamps();
+        return $this->hasMany(Keyword::class, 'ayat_id');
     }
-
 }

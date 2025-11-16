@@ -24,22 +24,25 @@ class AyatController extends Controller
     // Search by Surah ID
     public function getBySurah($surah_id)
     {
-        $ayats = Ayat::where('surah_id', $surah_id)->get();
+        $ayats = Ayat::with(['keywords.tag'])
+            ->where('surah_id', $surah_id)
+            ->get();
 
         if ($ayats->isEmpty()) {
             return response()->json([
                 'status' => false,
                 'message' => 'No Ayats found for this Surah',
                 'data' => [],
-            ]);
+            ], 404);
         }
 
         return response()->json([
             'status' => true,
             'message' => 'Ayats fetched successfully for this Surah',
             'data' => AyatResource::collection($ayats),
-        ]);
+        ], 200);
     }
+
 
 
     public function addKeywords(Request $request, $ayat_id)
