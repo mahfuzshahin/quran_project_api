@@ -29,6 +29,7 @@ Route::get('/ayats/by-surah/{surah_id}', [AyatController::class, 'getBySurah']);
 Route::post('/ayats/{ayat_id}/tags', [AyatController::class, 'addKeywords']);
 
 Route::post('/keywords', [KeywordController::class, 'store']);
+Route::delete('/keywords/{id}', [KeywordController::class, 'destroy']);
 
 Route::get('/tags', [TagController::class, 'index']);
 
